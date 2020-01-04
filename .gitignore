@@ -1,0 +1,10 @@
+**checkpoint*
+**.ipynb_checkpoints*
+**cache*
+**.pkl
+**.json
+**.pt
+**.pdf
+**.png
+**.gif
+**.DS_Store
