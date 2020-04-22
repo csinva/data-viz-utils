@@ -1,7 +1,9 @@
 # functions for data visualization in matplotlib
 
 
+## plot with 2 legends
 
+![](plot_scatter_2_legends.png)
 
 ## extended heatmaps
 

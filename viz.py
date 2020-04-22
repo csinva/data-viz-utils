@@ -4,12 +4,13 @@ import numpy as np
 import matplotlib.gridspec as gridspec
 from matplotlib.colors import LinearSegmentedColormap
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+from matplotlib.lines import Line2D
 
 def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False, 
               cmap=sns.color_palette("viridis", n_colors=1000),
-              fontsize_small=10, dpi=300):
+              fontsize_small=10):
 
-    plt.figure(figsize=(6, 6), dpi=dpi)
+    plt.figure(figsize=(6, 6)) 
     gs = gridspec.GridSpec(20, 20) # split up the space into a grid
     topheight = 4  # height of top plot (based on grid)
     rightwidth = 5 # width of right plot (based on grid)
@@ -213,3 +214,48 @@ def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
             vertical=True
         )
     plt.legend(legends)
+
+def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
+                 sizelab: str, markersize_rescaling: int, figsize=(7, 3)):
+    '''
+    Params
+    ------
+    markersize_rescaling: 
+    '''
+    # Unique category labels: 'D', 'F', 'G', ...
+    color_labels = c
+
+    # List of RGB triplets
+    rgb_values = sns.color_palette("Set2", len(color_labels))
+
+    # Map label to RGB
+    color_map = dict(zip(color_labels, rgb_values))
+
+    # Finally use the mapped values
+    colors = c.map(color_map)
+#     plt.scatter(df['carat'], df['price'], c=df['color'].map(color_map))
+    rgb_values = sns.color_palette("Set2", 8)
+
+    fig, ax = plt.subplots(figsize=figsize)
+    scatter = ax.scatter(x, y, c=colors, s=s, alpha=1)
+    plt.yscale('symlog')
+    plt.xscale('symlog')
+
+    # produce a legend with the unique colors from the scatter
+    leg_els = []
+    for k in color_map:
+        leg_els.append(Line2D([0], [0], marker='o', color='w', label=k, markerfacecolor=color_map[k], markersize=6))
+
+    legend1 = ax.legend(handles=leg_els, loc="upper left", title=colorlab, fontsize=9)
+    ax.add_artist(legend1)
+
+    # produce a legend with a cross section of sizes from the scatter
+    handles, labels = scatter.legend_elements(prop="sizes", alpha=1)
+    l2 = []
+    for i in range(len(labels)):
+        s = labels[i]
+        num = markersize_rescaling * round(float(s[s.index('{') + 1: s.index('}')]), 2)
+        l2.append('$\\mathdefault{' + str(num) + '}$')
+    legend2 = ax.legend(handles, l2, loc="lower right", title=sizelab)
+    plt.xlabel(xlab)
+    plt.ylabel(ylab)
