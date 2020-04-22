@@ -1,15 +1,15 @@
 from matplotlib import pyplot as plt
 import seaborn as sns
 import numpy as np
-import matplotlib.gridspec as grd
+import matplotlib.gridspec as gridspec
+from matplotlib.colors import LinearSegmentedColormap
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-
-
-def superheat(data, cond1, cond2, show_cbar=True, annot=False, 
+def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False, 
               cmap=sns.color_palette("viridis", n_colors=1000),
-              fontsize_small=10):
+              fontsize_small=10, dpi=300):
 
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(6, 6), dpi=dpi)
     gs = gridspec.GridSpec(20, 20) # split up the space into a grid
     topheight = 4  # height of top plot (based on grid)
     rightwidth = 5 # width of right plot (based on grid)
@@ -54,7 +54,6 @@ def superheat(data, cond1, cond2, show_cbar=True, annot=False,
         cb = plt.colorbar(im_c, cax=cax)
         cb.ax.tick_params(labelsize=8) 
         cb.outline.set_visible(False)
-    plt.show()
 
 
 def plot_confusion_matrix(y_true, y_pred, classes,
@@ -106,13 +105,13 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     return ax
 
 
-def plot_pcs(pca, X):
+def plot_pcs(pca, feat_names=None):
     '''Pretty plot of pcs with explained var bars
     Params
     ------
     pca: sklearn PCA class after being fitted
     '''
-    plt.figure(figsize=(6, 9), dpi=200)
+    # plt.figure(figsize=(6, 9), dpi=200)
     
     # extract out relevant pars
     comps = pca.components_.transpose()
@@ -120,7 +119,7 @@ def plot_pcs(pca, X):
     
     
     # create a 2 X 2 grid 
-    gs = grd.GridSpec(2, 2, height_ratios=[2,10], 
+    gs = gridspec.GridSpec(2, 2, height_ratios=[2,10], 
                       width_ratios=[12, 1], wspace=0.1, hspace=0)
 
     
@@ -142,14 +141,15 @@ def plot_pcs(pca, X):
                   cmap=sns.diverging_palette(10, 240, as_cmap=True, center='light'),
                   vmin=-vmaxabs, vmax=vmaxabs) # center at 0
     plt.xlabel('PCA component number')
-    ax.set_yticklabels(list(X))
-    ax.set_yticks(range(len(list(X))))
+    
+    if feat_names is not None:
+        ax.set_yticklabels(list(feat_names))
+        ax.set_yticks(range(len(list(feat_names))))
     
 
     # make colorbar
     colorAx = plt.subplot(gs[3])
     cb = plt.colorbar(p, cax=colorAx)
-    plt.show()
     
 def jointplot_grouped(col_x: str, col_y: str, col_k: str, df, 
                       k_is_color=False, scatter_alpha=.5, add_global_hists: bool=True):
