@@ -6,6 +6,18 @@ from matplotlib.colors import LinearSegmentedColormap
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.lines import Line2D
 
+
+# Generate a custom diverging colormap
+cmap = sns.diverging_palette(10, 220, as_cmap=True)
+def corrplot(corrs):
+    '''Simple color-centered working heatmap for plots of correlation
+    '''
+    mask = np.triu(np.ones_like(corrs, dtype=np.bool))
+    corrs[mask] = np.nan
+    max_abs = np.nanmax(np.abs(corrs))
+    plt.imshow(corrs, cmap=cmap, vmax=max_abs, vmin=-max_abs)
+
+
 def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False, 
               cmap=sns.color_palette("viridis", n_colors=1000),
               fontsize_small=10):
