@@ -18,12 +18,10 @@ setuptools.setup(
     packages=setuptools.find_packages(exclude=['tests']),
     install_requires=[
         'numpy',
-        'scipy',
         'matplotlib',
         'seaborn',
         'scikit-learn>=0.23.0',  # 0.23+ only works on py3.6+
         'adjustText',
-        'cvxopt',
     ],
     python_requires='>=3.6',
     classifiers=[

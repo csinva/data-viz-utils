@@ -60,3 +60,5 @@ _site
 # webstorm
 .idea
 **egg*
+build
+dist

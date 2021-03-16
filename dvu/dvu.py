@@ -15,6 +15,25 @@ cb = '#66ccff'
 cr = '#cc0000'
 
 
+def invert_plot():
+    '''Invert style to black background, not changing line colors
+    '''
+
+    fig = plt.gcf()
+    fig.patch.set_facecolor('black')
+    fig.patch.set_edgecolor('black')
+
+    allaxes = fig.get_axes()
+    for ax in allaxes:
+        ax.set_facecolor('black')
+        for loc in ['bottom', 'top', 'left', 'right']:
+            ax.spines[loc].set_color('white')
+        ax.tick_params(axis='x', colors='white')
+        ax.tick_params(axis='y', colors='white')
+        ax.yaxis.label.set_color('white')
+        ax.xaxis.label.set_color('white')
+
+
 def line_legend(fontsize: float = 15,
                 xoffset_spacing: float = 0.02,
                 extra_spacing: float = 0.1,
