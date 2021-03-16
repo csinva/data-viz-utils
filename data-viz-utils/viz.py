@@ -1,14 +1,15 @@
-from matplotlib import pyplot as plt
-import seaborn as sns
-import numpy as np
 import matplotlib.gridspec as gridspec
+import numpy as np
+import seaborn as sns
+from matplotlib import pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.lines import Line2D
-
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # Generate a custom diverging colormap
 cmap = sns.diverging_palette(10, 220, as_cmap=True)
+
+
 def corrplot(corrs):
     '''Simple color-centered working heatmap for plots of correlation
     '''
@@ -18,21 +19,20 @@ def corrplot(corrs):
     plt.imshow(corrs, cmap=cmap, vmax=max_abs, vmin=-max_abs)
 
 
-def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False, 
-              cmap=sns.color_palette("viridis", n_colors=1000),
-              fontsize_small=10):
-
-    plt.figure(figsize=(6, 6)) 
-    gs = gridspec.GridSpec(20, 20) # split up the space into a grid
+def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False,
+                     cmap=sns.color_palette("viridis", n_colors=1000),
+                     fontsize_small=10):
+    plt.figure(figsize=(6, 6))
+    gs = gridspec.GridSpec(20, 20)  # split up the space into a grid
     topheight = 4  # height of top plot (based on grid)
-    rightwidth = 5 # width of right plot (based on grid)
+    rightwidth = 5  # width of right plot (based on grid)
 
     # heatmap
     ax2 = plt.subplot(gs[topheight:, :-rightwidth])
     im = sns.heatmap(data.T, cmap=cmap, cbar=False, annot=annot)
     plt.xlabel('X1')
     plt.ylabel('X2')
-    
+
     # top plot
     ax1 = plt.subplot(gs[:topheight, :-rightwidth])
     plt.xticks([])
@@ -46,10 +46,9 @@ def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False,
     plt.xlabel('Conditional 2', fontsize=fontsize_small)
 
     plt.tight_layout()
-    
+
     # colorbar
     if show_cbar:
-
         # create a dummy plot and then remove it
         plt.subplot(gs[0, -1])
         cm = LinearSegmentedColormap.from_list('x', cmap)
@@ -65,7 +64,7 @@ def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False,
 
         # make colorbar based on dummy plot
         cb = plt.colorbar(im_c, cax=cax)
-        cb.ax.tick_params(labelsize=8) 
+        cb.ax.tick_params(labelsize=8)
         cb.outline.set_visible(False)
 
 
@@ -90,16 +89,16 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
 
-#     fig, ax = plt.subplots()
+    #     fig, ax = plt.subplots()
     im = plt.imshow(cm, interpolation='nearest', cmap=cmap)
     ax = plt.gca()
-#     ax.figure.colorbar(im, ax=ax)
+    #     ax.figure.colorbar(im, ax=ax)
     # We want to show all ticks...
     ax.set(xticks=np.arange(cm.shape[1]),
            yticks=np.arange(cm.shape[0]),
            # ... and label them with the respective list entries
            xticklabels=classes, yticklabels=classes,
-#            title=title,
+           #            title=title,
            ylabel='True label',
            xlabel='Predicted label')
 
@@ -125,47 +124,45 @@ def plot_pcs(pca, feat_names=None):
     pca: sklearn PCA class after being fitted
     '''
     # plt.figure(figsize=(6, 9), dpi=200)
-    
+
     # extract out relevant pars
     comps = pca.components_.transpose()
     var_norm = pca.explained_variance_ / np.sum(pca.explained_variance_) * 100
-    
-    
-    # create a 2 X 2 grid 
-    gs = gridspec.GridSpec(2, 2, height_ratios=[2,10], 
-                      width_ratios=[12, 1], wspace=0.1, hspace=0)
 
-    
+    # create a 2 X 2 grid 
+    gs = gridspec.GridSpec(2, 2, height_ratios=[2, 10],
+                           width_ratios=[12, 1], wspace=0.1, hspace=0)
+
     # plot explained variance
     ax2 = plt.subplot(gs[0])
-    ax2.bar(np.arange(0, comps.shape[1]), var_norm, 
+    ax2.bar(np.arange(0, comps.shape[1]), var_norm,
             color='gray', width=0.8)
     plt.title('Explained variance (%)')
     ax2.spines['right'].set_visible(False)
     ax2.spines['top'].set_visible(False)
     ax2.yaxis.set_ticks_position('left')
     ax2.set_yticks([0, max(var_norm)])
-    plt.xlim((-0.5, comps.shape[1]-0.5))
-    
+    plt.xlim((-0.5, comps.shape[1] - 0.5))
+
     # plot pcs
     ax = plt.subplot(gs[2])
     vmaxabs = np.max(np.abs(comps))
     p = ax.imshow(comps, interpolation='None', aspect='auto',
                   cmap=sns.diverging_palette(10, 240, as_cmap=True, center='light'),
-                  vmin=-vmaxabs, vmax=vmaxabs) # center at 0
+                  vmin=-vmaxabs, vmax=vmaxabs)  # center at 0
     plt.xlabel('PCA component number')
-    
+
     if feat_names is not None:
         ax.set_yticklabels(list(feat_names))
         ax.set_yticks(range(len(list(feat_names))))
-    
 
     # make colorbar
     colorAx = plt.subplot(gs[3])
     cb = plt.colorbar(p, cax=colorAx)
-    
-def jointplot_grouped(col_x: str, col_y: str, col_k: str, df, 
-                      k_is_color=False, scatter_alpha=.5, add_global_hists: bool=True):
+
+
+def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
+                      k_is_color=False, scatter_alpha=.5, add_global_hists: bool = True):
     '''Jointplot of hists + densities
     Params
     ------
@@ -178,6 +175,7 @@ def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
     add_global_hists
         whether to plot the global hist as well
     '''
+
     def colored_scatter(x, y, c=None):
         def scatter(*args, **kwargs):
             args = (x, y)
@@ -194,13 +192,13 @@ def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
         data=df
     )
     color = None
-    legends=[]
+    legends = []
     for name, df_group in df.groupby(col_k):
         legends.append(name)
         if k_is_color:
-            color=name
+            color = name
         g.plot_joint(
-            colored_scatter(df_group[col_x],df_group[col_y],color),
+            colored_scatter(df_group[col_x], df_group[col_y], color),
         )
         sns.distplot(
             df_group[col_x].values,
@@ -210,7 +208,7 @@ def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
         sns.distplot(
             df_group[col_y].values,
             ax=g.ax_marg_y,
-            color=color,            
+            color=color,
             vertical=True
         )
     if add_global_hists:
@@ -227,8 +225,9 @@ def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
         )
     plt.legend(legends)
 
+
 def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
-                 sizelab: str, markersize_rescaling: int, figsize=(7, 3)):
+                      sizelab: str, markersize_rescaling: int, figsize=(7, 3)):
     '''
     Params
     ------
@@ -245,7 +244,7 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
 
     # Finally use the mapped values
     colors = c.map(color_map)
-#     plt.scatter(df['carat'], df['price'], c=df['color'].map(color_map))
+    #     plt.scatter(df['carat'], df['price'], c=df['color'].map(color_map))
     rgb_values = sns.color_palette("Set2", 8)
 
     fig, ax = plt.subplots(figsize=figsize)
