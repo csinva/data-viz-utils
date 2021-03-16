@@ -1,26 +1,41 @@
-# functions for data visualization in matplotlib
+<h1 align="center"> Data-viz utils 📈</h1>
+<p align="center"> Functions for data visualization in matplotlib
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/license-mit-blue.svg">
+  <img src="https://img.shields.io/badge/python-3.6--3.8-blue">
+  <img src="https://img.shields.io/github/checks-status/csinva/data-viz-utils/master">
+</p>  
 
 
-## plot with 2 legends
+## Plot with 2 legends
 
-![](plot_scatter_2_legends.png)
+![](img/plot_scatter_2_legends.png)
 
-## extended heatmaps
+## Extended heatmaps
 
 Generating extended heatmaps, trying to replicate some of the behavior of the wonderful R package [superheat](https://github.com/rlbarter/superheat)
 
 - uses seaborn and maplotlib to put together information from multiple plots into one plot
 - simple example:
 
-![](plot_heatmap_extended.png)
+![](img/plot_heatmap_extended.png)
 
-## grouped jointplot
+## Grouped jointplot
 
 Based on answer from [here](https://stackoverflow.com/questions/35920885/how-to-overlay-a-seaborn-jointplot-with-a-marginal-distribution-histogram-fr).
 
-![](plot_joint_grouped.png)
+![](img/plot_joint_grouped.png)
 
-## pc plot
+## Principal components plot
 
-![](plot_pcs.png)
+![](img/plot_pcs.png)
 
+## AI Conference trends
+
+![](img/conference_trends.png)
+
+
+# Website details
+- Theme from [here](https://github.com/inded/Jekyll_modern-blog)
+- Based off of this [article from Codrops](http://tympanus.net/codrops/?p=24222)
