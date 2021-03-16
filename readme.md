@@ -9,39 +9,15 @@
 <p align="center"><a href="https://csinva.io/data-viz-utils/docs/dvu.html"> 📚 API </a>
 </p>
 
-`
-Currently should be installed using `pip install git+https://github.com/csinva/data-viz-utils`
+Currently should be installed using `pip install git+https://github.com/csinva/data-viz-utils`. Then, can `import dvu`  
 
-Then, can `import dvu`  
+Helps create a bunch of different plots such as these:
 
-## Plot with 2 legends
+![](https://csinva.io/data-viz-utils/img/plots_screenshot.jpg)
 
-![](img/plot_scatter_2_legends.png)
-
-## Extended heatmaps
-
-Generating extended heatmaps, trying to replicate some of the behavior of the wonderful R package [superheat](https://github.com/rlbarter/superheat)
-
-- uses seaborn and maplotlib to put together information from multiple plots into one plot
-- simple example:
-
-![](img/plot_heatmap_extended.png)
-
-## Grouped jointplot
-
-Based on answer from [here](https://stackoverflow.com/questions/35920885/how-to-overlay-a-seaborn-jointplot-with-a-marginal-distribution-histogram-fr).
-
-![](img/plot_joint_grouped.png)
-
-## Principal components plot
-
-![](img/plot_pcs.png)
-
-## AI Conference trends
-
-![](img/conference_trends.png)
-
-
-# Website details
-- Theme from [here](https://github.com/inded/Jekyll_modern-blog)
-- Based off of this [article from Codrops](http://tympanus.net/codrops/?p=24222)
+# Reference
+- for updates, star the repo or follow [@csinva_](https://twitter.com/csinva_)
+- feel free to use openly!
+- built with jekyll + github pages
+- theme from [here](https://github.com/inded/Jekyll_modern-blog)
+    - based off of this [article from Codrops](http://tympanus.net/codrops/?p=24222)
