@@ -20,6 +20,7 @@ def line_legend(fontsize: float = 15,
                 extra_spacing: float = 0.1,
                 adjust_text_labels: bool = False):
     '''Adds a legend with appropriately colored text labels next to each line
+
     Params
     ------
     fontsize
@@ -51,7 +52,7 @@ def line_legend(fontsize: float = 15,
 #     plt.xticks(xticks, labels=xticklabels)
 
 def corrplot(corrs):
-    '''Simple color-centered working heatmap for plots of correlation
+    '''Simple color-centered traingle-heatmap for plots of correlation
     '''
     mask = np.triu(np.ones_like(corrs, dtype=np.bool))
     corrs[mask] = np.nan
@@ -62,6 +63,8 @@ def corrplot(corrs):
 def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False,
                      cmap=None,
                      fontsize_small=10):
+    '''Adds conditional plots to the sides of a heatmap
+    '''
     if cmap is None:
         cmap = sns.color_palette("viridis", n_colors=1000)
     plt.figure(figsize=(6, 6))
@@ -160,7 +163,8 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 
 
 def plot_pcs(pca, feat_names=None):
-    '''Pretty plot of pcs with explained var bars
+    '''Pretty plot of principal components with explained var bars
+
     Params
     ------
     pca: sklearn PCA class after being fitted
@@ -205,7 +209,7 @@ def plot_pcs(pca, feat_names=None):
 
 def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
                       k_is_color=False, scatter_alpha=.5, add_global_hists: bool = True):
-    '''Jointplot of hists + densities
+    '''Jointplot if densities with conditional histograms
     Params
     ------
     col_x
@@ -270,10 +274,11 @@ def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
 
 def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
                       sizelab: str, markersize_rescaling: int, figsize=(7, 3)):
-    '''
+    '''Scatter plot with 2 legends
+
     Params
     ------
-    markersize_rescaling: 
+    markersize_rescaling
     '''
     # Unique category labels: 'D', 'F', 'G', ...
     color_labels = c

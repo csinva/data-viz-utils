@@ -13,7 +13,7 @@ Currently should be installed using `pip install git+https://github.com/csinva/d
 
 Helps create a bunch of different plots such as these:
 
-![](https://csinva.io/data-viz-utils/img/plots_screenshot.jpg)
+![](https://csinva.io/data-viz-utils/img/plots_screenshot.png)
 
 # Reference
 - for updates, star the repo or follow [@csinva_](https://twitter.com/csinva_)

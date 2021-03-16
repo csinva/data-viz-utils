@@ -46,6 +46,7 @@ def line_legend(fontsize: float = 15,
                 extra_spacing: float = 0.1,
                 adjust_text_labels: bool = False):
     &#39;&#39;&#39;Adds a legend with appropriately colored text labels next to each line
+
     Params
     ------
     fontsize
@@ -77,7 +78,7 @@ def line_legend(fontsize: float = 15,
 #     plt.xticks(xticks, labels=xticklabels)
 
 def corrplot(corrs):
-    &#39;&#39;&#39;Simple color-centered working heatmap for plots of correlation
+    &#39;&#39;&#39;Simple color-centered traingle-heatmap for plots of correlation
     &#39;&#39;&#39;
     mask = np.triu(np.ones_like(corrs, dtype=np.bool))
     corrs[mask] = np.nan
@@ -88,6 +89,8 @@ def corrplot(corrs):
 def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False,
                      cmap=None,
                      fontsize_small=10):
+    &#39;&#39;&#39;Adds conditional plots to the sides of a heatmap
+    &#39;&#39;&#39;
     if cmap is None:
         cmap = sns.color_palette(&#34;viridis&#34;, n_colors=1000)
     plt.figure(figsize=(6, 6))
@@ -186,7 +189,8 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 
 
 def plot_pcs(pca, feat_names=None):
-    &#39;&#39;&#39;Pretty plot of pcs with explained var bars
+    &#39;&#39;&#39;Pretty plot of principal components with explained var bars
+
     Params
     ------
     pca: sklearn PCA class after being fitted
@@ -231,7 +235,7 @@ def plot_pcs(pca, feat_names=None):
 
 def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
                       k_is_color=False, scatter_alpha=.5, add_global_hists: bool = True):
-    &#39;&#39;&#39;Jointplot of hists + densities
+    &#39;&#39;&#39;Jointplot if densities with conditional histograms
     Params
     ------
     col_x
@@ -296,10 +300,11 @@ def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
 
 def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
                       sizelab: str, markersize_rescaling: int, figsize=(7, 3)):
-    &#39;&#39;&#39;
+    &#39;&#39;&#39;Scatter plot with 2 legends
+
     Params
     ------
-    markersize_rescaling: 
+    markersize_rescaling
     &#39;&#39;&#39;
     # Unique category labels: &#39;D&#39;, &#39;F&#39;, &#39;G&#39;, ...
     color_labels = c
@@ -351,13 +356,13 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
 <span>def <span class="ident">corrplot</span></span>(<span>corrs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Simple color-centered working heatmap for plots of correlation</p></section>
+<section class="desc"><p>Simple color-centered traingle-heatmap for plots of correlation</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def corrplot(corrs):
-    &#39;&#39;&#39;Simple color-centered working heatmap for plots of correlation
+    &#39;&#39;&#39;Simple color-centered traingle-heatmap for plots of correlation
     &#39;&#39;&#39;
     mask = np.triu(np.ones_like(corrs, dtype=np.bool))
     corrs[mask] = np.nan
@@ -369,7 +374,7 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
 <span>def <span class="ident">heatmap_extended</span></span>(<span>data, cond1, cond2, show_cbar=True, annot=False, cmap=None, fontsize_small=10)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>Adds conditional plots to the sides of a heatmap</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -377,6 +382,8 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
 <pre><code class="python">def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False,
                      cmap=None,
                      fontsize_small=10):
+    &#39;&#39;&#39;Adds conditional plots to the sides of a heatmap
+    &#39;&#39;&#39;
     if cmap is None:
         cmap = sns.color_palette(&#34;viridis&#34;, n_colors=1000)
     plt.figure(figsize=(6, 6))
@@ -429,7 +436,7 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
 <span>def <span class="ident">jointplot_grouped</span></span>(<span>col_x, col_y, col_k, df, k_is_color=False, scatter_alpha=0.5, add_global_hists=True)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Jointplot of hists + densities
+<section class="desc"><p>Jointplot if densities with conditional histograms
 Params</p>
 <hr>
 <dl>
@@ -448,7 +455,7 @@ Params</p>
 </summary>
 <pre><code class="python">def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
                       k_is_color=False, scatter_alpha=.5, add_global_hists: bool = True):
-    &#39;&#39;&#39;Jointplot of hists + densities
+    &#39;&#39;&#39;Jointplot if densities with conditional histograms
     Params
     ------
     col_x
@@ -515,9 +522,8 @@ Params</p>
 <span>def <span class="ident">line_legend</span></span>(<span>fontsize=15, xoffset_spacing=0.02, extra_spacing=0.1, adjust_text_labels=False)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Adds a legend with appropriately colored text labels next to each line
-Params</p>
-<hr>
+<section class="desc"><p>Adds a legend with appropriately colored text labels next to each line</p>
+<h2 id="params">Params</h2>
 <dl>
 <dt><strong><code>fontsize</code></strong></dt>
 <dd>size of font for labels</dd>
@@ -537,6 +543,7 @@ Params</p>
                 extra_spacing: float = 0.1,
                 adjust_text_labels: bool = False):
     &#39;&#39;&#39;Adds a legend with appropriately colored text labels next to each line
+
     Params
     ------
     fontsize
@@ -628,9 +635,8 @@ Normalization can be applied by setting <code>normalize=True</code>.</p></sectio
 <span>def <span class="ident">plot_pcs</span></span>(<span>pca, feat_names=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Pretty plot of pcs with explained var bars
-Params</p>
-<hr>
+<section class="desc"><p>Pretty plot of principal components with explained var bars</p>
+<h2 id="params">Params</h2>
 <dl>
 <dt><strong><code>pca</code></strong> :&ensp;<code>sklearn</code> <code>PCA</code> <code>class</code> <code>after</code> <code>being</code> <code>fitted</code></dt>
 <dd>&nbsp;</dd>
@@ -640,7 +646,8 @@ Params</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def plot_pcs(pca, feat_names=None):
-    &#39;&#39;&#39;Pretty plot of pcs with explained var bars
+    &#39;&#39;&#39;Pretty plot of principal components with explained var bars
+
     Params
     ------
     pca: sklearn PCA class after being fitted
@@ -687,18 +694,23 @@ Params</p>
 <span>def <span class="ident">scatter_2_legends</span></span>(<span>x, y, c, s, xlab, ylab, colorlab, sizelab, markersize_rescaling, figsize=(7, 3))</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="params">Params</h2>
-<p>markersize_rescaling:</p></section>
+<section class="desc"><p>Scatter plot with 2 legends</p>
+<h2 id="params">Params</h2>
+<dl>
+<dt><strong><code>markersize_rescaling</code></strong></dt>
+<dd>&nbsp;</dd>
+</dl></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
                       sizelab: str, markersize_rescaling: int, figsize=(7, 3)):
-    &#39;&#39;&#39;
+    &#39;&#39;&#39;Scatter plot with 2 legends
+
     Params
     ------
-    markersize_rescaling: 
+    markersize_rescaling
     &#39;&#39;&#39;
     # Unique category labels: &#39;D&#39;, &#39;F&#39;, &#39;G&#39;, ...
     color_labels = c
