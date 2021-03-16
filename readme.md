@@ -11,7 +11,9 @@
 </p>
 
 
-Currently should be installed using `pip install dvu`. Then, you can `import dvu`  
+Can be installed using `pip install dvu` and them imported with `import dvu`. 
+
+You can also just copy the relatively short source code for the functions (easily viewable [here](https://csinva.io/data-viz-utils/docs/dvu.html)). 
 
 Helps create a bunch of different plots such as these:
 
@@ -39,6 +41,8 @@ Another one is `dvu.invert_plot()` which can be called after generating a plot t
 # Reference
 
 - for updates, star the repo or follow [@csinva_](https://twitter.com/csinva_)
+- super-related and wonderful [matplotlib-label-lines](https://github.com/cphyc/matplotlib-label-lines) project
+- [PR](https://t.co/lTe19vdETE?amp=1) for implementing line-labeling into matplotlib
 - feel free to use openly!
 - built with jekyll + github pages
 - theme from [here](https://github.com/inded/Jekyll_modern-blog)

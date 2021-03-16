@@ -41,6 +41,25 @@ cb = &#39;#66ccff&#39;
 cr = &#39;#cc0000&#39;
 
 
+def invert_plot():
+    &#39;&#39;&#39;Invert style to black background, not changing line colors
+    &#39;&#39;&#39;
+
+    fig = plt.gcf()
+    fig.patch.set_facecolor(&#39;black&#39;)
+    fig.patch.set_edgecolor(&#39;black&#39;)
+
+    allaxes = fig.get_axes()
+    for ax in allaxes:
+        ax.set_facecolor(&#39;black&#39;)
+        for loc in [&#39;bottom&#39;, &#39;top&#39;, &#39;left&#39;, &#39;right&#39;]:
+            ax.spines[loc].set_color(&#39;white&#39;)
+        ax.tick_params(axis=&#39;x&#39;, colors=&#39;white&#39;)
+        ax.tick_params(axis=&#39;y&#39;, colors=&#39;white&#39;)
+        ax.yaxis.label.set_color(&#39;white&#39;)
+        ax.xaxis.label.set_color(&#39;white&#39;)
+
+
 def line_legend(fontsize: float = 15,
                 xoffset_spacing: float = 0.02,
                 extra_spacing: float = 0.1,
@@ -432,6 +451,34 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
         cb.outline.set_visible(False)</code></pre>
 </details>
 </dd>
+<dt id="dvu.dvu.invert_plot"><code class="name flex">
+<span>def <span class="ident">invert_plot</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Invert style to black background, not changing line colors</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def invert_plot():
+    &#39;&#39;&#39;Invert style to black background, not changing line colors
+    &#39;&#39;&#39;
+
+    fig = plt.gcf()
+    fig.patch.set_facecolor(&#39;black&#39;)
+    fig.patch.set_edgecolor(&#39;black&#39;)
+
+    allaxes = fig.get_axes()
+    for ax in allaxes:
+        ax.set_facecolor(&#39;black&#39;)
+        for loc in [&#39;bottom&#39;, &#39;top&#39;, &#39;left&#39;, &#39;right&#39;]:
+            ax.spines[loc].set_color(&#39;white&#39;)
+        ax.tick_params(axis=&#39;x&#39;, colors=&#39;white&#39;)
+        ax.tick_params(axis=&#39;y&#39;, colors=&#39;white&#39;)
+        ax.yaxis.label.set_color(&#39;white&#39;)
+        ax.xaxis.label.set_color(&#39;white&#39;)</code></pre>
+</details>
+</dd>
 <dt id="dvu.dvu.jointplot_grouped"><code class="name flex">
 <span>def <span class="ident">jointplot_grouped</span></span>(<span>col_x, col_y, col_k, df, k_is_color=False, scatter_alpha=0.5, add_global_hists=True)</span>
 </code></dt>
@@ -771,6 +818,7 @@ Normalization can be applied by setting <code>normalize=True</code>.</p></sectio
 <ul class="">
 <li><code><a title="dvu.dvu.corrplot" href="#dvu.dvu.corrplot">corrplot</a></code></li>
 <li><code><a title="dvu.dvu.heatmap_extended" href="#dvu.dvu.heatmap_extended">heatmap_extended</a></code></li>
+<li><code><a title="dvu.dvu.invert_plot" href="#dvu.dvu.invert_plot">invert_plot</a></code></li>
 <li><code><a title="dvu.dvu.jointplot_grouped" href="#dvu.dvu.jointplot_grouped">jointplot_grouped</a></code></li>
 <li><code><a title="dvu.dvu.line_legend" href="#dvu.dvu.line_legend">line_legend</a></code></li>
 <li><code><a title="dvu.dvu.plot_confusion_matrix" href="#dvu.dvu.plot_confusion_matrix">plot_confusion_matrix</a></code></li>
