@@ -6,8 +6,13 @@
   <img src="https://img.shields.io/badge/python-3.6--3.8-blue">
   <img src="https://img.shields.io/github/checks-status/csinva/data-viz-utils/master">
 </p>  
+<p align="center"><a href="https://csinva.io/data-viz-utils/docs/dvu.html"> 📚 API </a>
+</p>
 
-API reference available at https://csinva.io/data-viz-utils/docs/dvu.html
+`
+Currently should be installed using `pip install git+https://github.com/csinva/data-viz-utils`
+
+Then, can `import dvu`  
 
 ## Plot with 2 legends
 

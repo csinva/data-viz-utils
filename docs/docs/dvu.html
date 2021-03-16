@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.2" />
-<title>data-viz-utils.dvu API documentation</title>
+<title>dvu.dvu API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>data-viz-utils.dvu</code></h1>
+<h1 class="title">Module <code>dvu.dvu</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -347,7 +347,7 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="data-viz-utils.dvu.corrplot"><code class="name flex">
+<dt id="dvu.dvu.corrplot"><code class="name flex">
 <span>def <span class="ident">corrplot</span></span>(<span>corrs)</span>
 </code></dt>
 <dd>
@@ -365,7 +365,7 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
     plt.imshow(corrs, cmap=cmap, vmax=max_abs, vmin=-max_abs)</code></pre>
 </details>
 </dd>
-<dt id="data-viz-utils.dvu.heatmap_extended"><code class="name flex">
+<dt id="dvu.dvu.heatmap_extended"><code class="name flex">
 <span>def <span class="ident">heatmap_extended</span></span>(<span>data, cond1, cond2, show_cbar=True, annot=False, cmap=None, fontsize_small=10)</span>
 </code></dt>
 <dd>
@@ -425,7 +425,7 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
         cb.outline.set_visible(False)</code></pre>
 </details>
 </dd>
-<dt id="data-viz-utils.dvu.jointplot_grouped"><code class="name flex">
+<dt id="dvu.dvu.jointplot_grouped"><code class="name flex">
 <span>def <span class="ident">jointplot_grouped</span></span>(<span>col_x, col_y, col_k, df, k_is_color=False, scatter_alpha=0.5, add_global_hists=True)</span>
 </code></dt>
 <dd>
@@ -511,7 +511,7 @@ Params</p>
     plt.legend(legends)</code></pre>
 </details>
 </dd>
-<dt id="data-viz-utils.dvu.line_legend"><code class="name flex">
+<dt id="dvu.dvu.line_legend"><code class="name flex">
 <span>def <span class="ident">line_legend</span></span>(<span>fontsize=15, xoffset_spacing=0.02, extra_spacing=0.1, adjust_text_labels=False)</span>
 </code></dt>
 <dd>
@@ -565,7 +565,7 @@ Params</p>
         adjust_text(texts, only_move={&#39;points&#39;: &#39;y&#39;, &#39;text&#39;: &#39;y&#39;, &#39;objects&#39;: &#39;y&#39;})</code></pre>
 </details>
 </dd>
-<dt id="data-viz-utils.dvu.plot_confusion_matrix"><code class="name flex">
+<dt id="dvu.dvu.plot_confusion_matrix"><code class="name flex">
 <span>def <span class="ident">plot_confusion_matrix</span></span>(<span>y_true, y_pred, classes, normalize=False, title=None, cmap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;)</span>
 </code></dt>
 <dd>
@@ -624,7 +624,7 @@ Normalization can be applied by setting <code>normalize=True</code>.</p></sectio
     return ax</code></pre>
 </details>
 </dd>
-<dt id="data-viz-utils.dvu.plot_pcs"><code class="name flex">
+<dt id="dvu.dvu.plot_pcs"><code class="name flex">
 <span>def <span class="ident">plot_pcs</span></span>(<span>pca, feat_names=None)</span>
 </code></dt>
 <dd>
@@ -683,7 +683,7 @@ Params</p>
     cb = plt.colorbar(p, cax=colorAx)</code></pre>
 </details>
 </dd>
-<dt id="data-viz-utils.dvu.scatter_2_legends"><code class="name flex">
+<dt id="dvu.dvu.scatter_2_legends"><code class="name flex">
 <span>def <span class="ident">scatter_2_legends</span></span>(<span>x, y, c, s, xlab, ylab, colorlab, sizelab, markersize_rescaling, figsize=(7, 3))</span>
 </code></dt>
 <dd>
@@ -752,18 +752,18 @@ Params</p>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="data-viz-utils" href="index.html">data-viz-utils</a></code></li>
+<li><code><a title="dvu" href="index.html">dvu</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="data-viz-utils.dvu.corrplot" href="#data-viz-utils.dvu.corrplot">corrplot</a></code></li>
-<li><code><a title="data-viz-utils.dvu.heatmap_extended" href="#data-viz-utils.dvu.heatmap_extended">heatmap_extended</a></code></li>
-<li><code><a title="data-viz-utils.dvu.jointplot_grouped" href="#data-viz-utils.dvu.jointplot_grouped">jointplot_grouped</a></code></li>
-<li><code><a title="data-viz-utils.dvu.line_legend" href="#data-viz-utils.dvu.line_legend">line_legend</a></code></li>
-<li><code><a title="data-viz-utils.dvu.plot_confusion_matrix" href="#data-viz-utils.dvu.plot_confusion_matrix">plot_confusion_matrix</a></code></li>
-<li><code><a title="data-viz-utils.dvu.plot_pcs" href="#data-viz-utils.dvu.plot_pcs">plot_pcs</a></code></li>
-<li><code><a title="data-viz-utils.dvu.scatter_2_legends" href="#data-viz-utils.dvu.scatter_2_legends">scatter_2_legends</a></code></li>
+<li><code><a title="dvu.dvu.corrplot" href="#dvu.dvu.corrplot">corrplot</a></code></li>
+<li><code><a title="dvu.dvu.heatmap_extended" href="#dvu.dvu.heatmap_extended">heatmap_extended</a></code></li>
+<li><code><a title="dvu.dvu.jointplot_grouped" href="#dvu.dvu.jointplot_grouped">jointplot_grouped</a></code></li>
+<li><code><a title="dvu.dvu.line_legend" href="#dvu.dvu.line_legend">line_legend</a></code></li>
+<li><code><a title="dvu.dvu.plot_confusion_matrix" href="#dvu.dvu.plot_confusion_matrix">plot_confusion_matrix</a></code></li>
+<li><code><a title="dvu.dvu.plot_pcs" href="#dvu.dvu.plot_pcs">plot_pcs</a></code></li>
+<li><code><a title="dvu.dvu.scatter_2_legends" href="#dvu.dvu.scatter_2_legends">scatter_2_legends</a></code></li>
 </ul>
 </li>
 </ul>
