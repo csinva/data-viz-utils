@@ -1,14 +1,54 @@
 import matplotlib.gridspec as gridspec
 import numpy as np
 import seaborn as sns
+from adjustText import adjust_text
 from matplotlib import pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.lines import Line2D
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+from sklearn import metrics
+from sklearn.utils.multiclass import unique_labels
 
 # Generate a custom diverging colormap
 cmap = sns.diverging_palette(10, 220, as_cmap=True)
+cb = '#66ccff'
+cr = '#cc0000'
 
+
+def line_legend(fontsize: float = 15,
+                xoffset_spacing: float = 0.02,
+                extra_spacing: float = 0.1,
+                adjust_text_labels: bool = False):
+    '''Adds a legend with appropriately colored text labels next to each line
+    Params
+    ------
+    fontsize
+        size of font for labels
+    xoffset_spacing
+        spacing between end of line and label (fraction of total line length)
+    extra_spacing
+        extra spacing at right side of plot for label (fraction of total line length)
+    adjust_text_labels
+        whether to try to adjust the label positions to avoid overlap
+    '''
+    ax = plt.gca()
+    handles, labels = ax.get_legend_handles_labels()
+    texts = []
+    for i in range(len(handles)):
+        line = handles[i]
+        x = line.get_xdata()[-1] * (1 + xoffset_spacing)
+        y = line.get_ydata()[-1]
+        c = line.get_color()
+        texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
+    #     xticks = ax.get_xticks()
+    #     xticklabels = ax.get_xticklabels()
+    plt.xlim(right=x * (1 + extra_spacing))
+    plt.tight_layout()
+    if adjust_text_labels:
+        adjust_text(texts, only_move={'points': 'y', 'text': 'y', 'objects': 'y'})
+
+
+#     plt.xticks(xticks, labels=xticklabels)
 
 def corrplot(corrs):
     '''Simple color-centered working heatmap for plots of correlation
@@ -20,8 +60,10 @@ def corrplot(corrs):
 
 
 def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False,
-                     cmap=sns.color_palette("viridis", n_colors=1000),
+                     cmap=None,
                      fontsize_small=10):
+    if cmap is None:
+        cmap = sns.color_palette("viridis", n_colors=1000)
     plt.figure(figsize=(6, 6))
     gs = gridspec.GridSpec(20, 20)  # split up the space into a grid
     topheight = 4  # height of top plot (based on grid)

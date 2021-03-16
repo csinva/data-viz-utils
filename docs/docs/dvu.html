@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.2" />
+<title>data-viz-utils.dvu API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>data-viz-utils.dvu</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import matplotlib.gridspec as gridspec
+import numpy as np
+import seaborn as sns
+from adjustText import adjust_text
+from matplotlib import pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.lines import Line2D
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+from sklearn import metrics
+from sklearn.utils.multiclass import unique_labels
+
+# Generate a custom diverging colormap
+cmap = sns.diverging_palette(10, 220, as_cmap=True)
+cb = &#39;#66ccff&#39;
+cr = &#39;#cc0000&#39;
+
+
+def line_legend(fontsize: float = 15,
+                xoffset_spacing: float = 0.02,
+                extra_spacing: float = 0.1,
+                adjust_text_labels: bool = False):
+    &#39;&#39;&#39;Adds a legend with appropriately colored text labels next to each line
+    Params
+    ------
+    fontsize
+        size of font for labels
+    xoffset_spacing
+        spacing between end of line and label (fraction of total line length)
+    extra_spacing
+        extra spacing at right side of plot for label (fraction of total line length)
+    adjust_text_labels
+        whether to try to adjust the label positions to avoid overlap
+    &#39;&#39;&#39;
+    ax = plt.gca()
+    handles, labels = ax.get_legend_handles_labels()
+    texts = []
+    for i in range(len(handles)):
+        line = handles[i]
+        x = line.get_xdata()[-1] * (1 + xoffset_spacing)
+        y = line.get_ydata()[-1]
+        c = line.get_color()
+        texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
+    #     xticks = ax.get_xticks()
+    #     xticklabels = ax.get_xticklabels()
+    plt.xlim(right=x * (1 + extra_spacing))
+    plt.tight_layout()
+    if adjust_text_labels:
+        adjust_text(texts, only_move={&#39;points&#39;: &#39;y&#39;, &#39;text&#39;: &#39;y&#39;, &#39;objects&#39;: &#39;y&#39;})
+
+
+#     plt.xticks(xticks, labels=xticklabels)
+
+def corrplot(corrs):
+    &#39;&#39;&#39;Simple color-centered working heatmap for plots of correlation
+    &#39;&#39;&#39;
+    mask = np.triu(np.ones_like(corrs, dtype=np.bool))
+    corrs[mask] = np.nan
+    max_abs = np.nanmax(np.abs(corrs))
+    plt.imshow(corrs, cmap=cmap, vmax=max_abs, vmin=-max_abs)
+
+
+def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False,
+                     cmap=None,
+                     fontsize_small=10):
+    if cmap is None:
+        cmap = sns.color_palette(&#34;viridis&#34;, n_colors=1000)
+    plt.figure(figsize=(6, 6))
+    gs = gridspec.GridSpec(20, 20)  # split up the space into a grid
+    topheight = 4  # height of top plot (based on grid)
+    rightwidth = 5  # width of right plot (based on grid)
+
+    # heatmap
+    ax2 = plt.subplot(gs[topheight:, :-rightwidth])
+    im = sns.heatmap(data.T, cmap=cmap, cbar=False, annot=annot)
+    plt.xlabel(&#39;X1&#39;)
+    plt.ylabel(&#39;X2&#39;)
+
+    # top plot
+    ax1 = plt.subplot(gs[:topheight, :-rightwidth])
+    plt.xticks([])
+    plt.plot(cond1)
+    plt.ylabel(&#39;Conditional 1&#39;, fontsize=fontsize_small)
+
+    # right plot
+    ax3 = plt.subplot(gs[topheight:, -rightwidth:])
+    plt.yticks([])
+    plt.plot(cond2, range(len(cond2))[::-1])
+    plt.xlabel(&#39;Conditional 2&#39;, fontsize=fontsize_small)
+
+    plt.tight_layout()
+
+    # colorbar
+    if show_cbar:
+        # create a dummy plot and then remove it
+        plt.subplot(gs[0, -1])
+        cm = LinearSegmentedColormap.from_list(&#39;x&#39;, cmap)
+        im_c = plt.imshow(data, cmap=cm)
+        plt.cla()
+        plt.axis(&#39;off&#39;)
+
+        # partition the right space to add colorbar
+        plt.subplot(gs[topheight:, -rightwidth:])
+        ax = plt.gca()
+        divider = make_axes_locatable(ax)
+        cax = divider.append_axes(&#34;right&#34;, size=&#34;20%&#34;, pad=0.1)
+
+        # make colorbar based on dummy plot
+        cb = plt.colorbar(im_c, cax=cax)
+        cb.ax.tick_params(labelsize=8)
+        cb.outline.set_visible(False)
+
+
+def plot_confusion_matrix(y_true, y_pred, classes,
+                          normalize=False,
+                          title=None,
+                          cmap=plt.cm.Blues):
+    &#34;&#34;&#34;
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    &#34;&#34;&#34;
+    if not title:
+        if normalize:
+            title = &#39;Normalized confusion matrix&#39;
+        else:
+            title = &#39;Confusion matrix, without normalization&#39;
+
+    # Compute confusion matrix
+    cm = metrics.confusion_matrix(y_true, y_pred)
+    # Only use the labels that appear in the data
+    classes = classes[unique_labels(y_true, y_pred)]
+    if normalize:
+        cm = cm.astype(&#39;float&#39;) / cm.sum(axis=1)[:, np.newaxis]
+
+    #     fig, ax = plt.subplots()
+    im = plt.imshow(cm, interpolation=&#39;nearest&#39;, cmap=cmap)
+    ax = plt.gca()
+    #     ax.figure.colorbar(im, ax=ax)
+    # We want to show all ticks...
+    ax.set(xticks=np.arange(cm.shape[1]),
+           yticks=np.arange(cm.shape[0]),
+           # ... and label them with the respective list entries
+           xticklabels=classes, yticklabels=classes,
+           #            title=title,
+           ylabel=&#39;True label&#39;,
+           xlabel=&#39;Predicted label&#39;)
+
+    # Rotate the tick labels and set their alignment.
+    plt.setp(ax.get_xticklabels(), rotation=45, ha=&#34;right&#34;,
+             rotation_mode=&#34;anchor&#34;)
+
+    # Loop over data dimensions and create text annotations.
+    fmt = &#39;.2f&#39; if normalize else &#39;d&#39;
+    thresh = cm.max() / 2.
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            ax.text(j, i, format(cm[i, j], fmt),
+                    ha=&#34;center&#34;, va=&#34;center&#34;,
+                    color=&#34;white&#34; if cm[i, j] &gt; thresh else &#34;black&#34;)
+    return ax
+
+
+def plot_pcs(pca, feat_names=None):
+    &#39;&#39;&#39;Pretty plot of pcs with explained var bars
+    Params
+    ------
+    pca: sklearn PCA class after being fitted
+    &#39;&#39;&#39;
+    # plt.figure(figsize=(6, 9), dpi=200)
+
+    # extract out relevant pars
+    comps = pca.components_.transpose()
+    var_norm = pca.explained_variance_ / np.sum(pca.explained_variance_) * 100
+
+    # create a 2 X 2 grid 
+    gs = gridspec.GridSpec(2, 2, height_ratios=[2, 10],
+                           width_ratios=[12, 1], wspace=0.1, hspace=0)
+
+    # plot explained variance
+    ax2 = plt.subplot(gs[0])
+    ax2.bar(np.arange(0, comps.shape[1]), var_norm,
+            color=&#39;gray&#39;, width=0.8)
+    plt.title(&#39;Explained variance (%)&#39;)
+    ax2.spines[&#39;right&#39;].set_visible(False)
+    ax2.spines[&#39;top&#39;].set_visible(False)
+    ax2.yaxis.set_ticks_position(&#39;left&#39;)
+    ax2.set_yticks([0, max(var_norm)])
+    plt.xlim((-0.5, comps.shape[1] - 0.5))
+
+    # plot pcs
+    ax = plt.subplot(gs[2])
+    vmaxabs = np.max(np.abs(comps))
+    p = ax.imshow(comps, interpolation=&#39;None&#39;, aspect=&#39;auto&#39;,
+                  cmap=sns.diverging_palette(10, 240, as_cmap=True, center=&#39;light&#39;),
+                  vmin=-vmaxabs, vmax=vmaxabs)  # center at 0
+    plt.xlabel(&#39;PCA component number&#39;)
+
+    if feat_names is not None:
+        ax.set_yticklabels(list(feat_names))
+        ax.set_yticks(range(len(list(feat_names))))
+
+    # make colorbar
+    colorAx = plt.subplot(gs[3])
+    cb = plt.colorbar(p, cax=colorAx)
+
+
+def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
+                      k_is_color=False, scatter_alpha=.5, add_global_hists: bool = True):
+    &#39;&#39;&#39;Jointplot of hists + densities
+    Params
+    ------
+    col_x
+        name of X var
+    col_y
+        name of Y var
+    col_k
+        name of variable to group/color by
+    add_global_hists
+        whether to plot the global hist as well
+    &#39;&#39;&#39;
+
+    def colored_scatter(x, y, c=None):
+        def scatter(*args, **kwargs):
+            args = (x, y)
+            if c is not None:
+                kwargs[&#39;c&#39;] = c
+            kwargs[&#39;alpha&#39;] = scatter_alpha
+            plt.scatter(*args, **kwargs)
+
+        return scatter
+
+    g = sns.JointGrid(
+        x=col_x,
+        y=col_y,
+        data=df
+    )
+    color = None
+    legends = []
+    for name, df_group in df.groupby(col_k):
+        legends.append(name)
+        if k_is_color:
+            color = name
+        g.plot_joint(
+            colored_scatter(df_group[col_x], df_group[col_y], color),
+        )
+        sns.distplot(
+            df_group[col_x].values,
+            ax=g.ax_marg_x,
+            color=color,
+        )
+        sns.distplot(
+            df_group[col_y].values,
+            ax=g.ax_marg_y,
+            color=color,
+            vertical=True
+        )
+    if add_global_hists:
+        sns.distplot(
+            df[col_x].values,
+            ax=g.ax_marg_x,
+            color=&#39;grey&#39;
+        )
+        sns.distplot(
+            df[col_y].values.ravel(),
+            ax=g.ax_marg_y,
+            color=&#39;grey&#39;,
+            vertical=True
+        )
+    plt.legend(legends)
+
+
+def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
+                      sizelab: str, markersize_rescaling: int, figsize=(7, 3)):
+    &#39;&#39;&#39;
+    Params
+    ------
+    markersize_rescaling: 
+    &#39;&#39;&#39;
+    # Unique category labels: &#39;D&#39;, &#39;F&#39;, &#39;G&#39;, ...
+    color_labels = c
+
+    # List of RGB triplets
+    rgb_values = sns.color_palette(&#34;Set2&#34;, len(color_labels))
+
+    # Map label to RGB
+    color_map = dict(zip(color_labels, rgb_values))
+
+    # Finally use the mapped values
+    colors = c.map(color_map)
+    #     plt.scatter(df[&#39;carat&#39;], df[&#39;price&#39;], c=df[&#39;color&#39;].map(color_map))
+    rgb_values = sns.color_palette(&#34;Set2&#34;, 8)
+
+    fig, ax = plt.subplots(figsize=figsize)
+    scatter = ax.scatter(x, y, c=colors, s=s, alpha=1)
+    plt.yscale(&#39;symlog&#39;)
+    plt.xscale(&#39;symlog&#39;)
+
+    # produce a legend with the unique colors from the scatter
+    leg_els = []
+    for k in color_map:
+        leg_els.append(Line2D([0], [0], marker=&#39;o&#39;, color=&#39;w&#39;, label=k, markerfacecolor=color_map[k], markersize=6))
+
+    legend1 = ax.legend(handles=leg_els, loc=&#34;upper left&#34;, title=colorlab, fontsize=9)
+    ax.add_artist(legend1)
+
+    # produce a legend with a cross section of sizes from the scatter
+    handles, labels = scatter.legend_elements(prop=&#34;sizes&#34;, alpha=1)
+    l2 = []
+    for i in range(len(labels)):
+        s = labels[i]
+        num = markersize_rescaling * round(float(s[s.index(&#39;{&#39;) + 1: s.index(&#39;}&#39;)]), 2)
+        l2.append(&#39;$\\mathdefault{&#39; + str(num) + &#39;}$&#39;)
+    legend2 = ax.legend(handles, l2, loc=&#34;lower right&#34;, title=sizelab)
+    plt.xlabel(xlab)
+    plt.ylabel(ylab)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="data-viz-utils.dvu.corrplot"><code class="name flex">
+<span>def <span class="ident">corrplot</span></span>(<span>corrs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Simple color-centered working heatmap for plots of correlation</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def corrplot(corrs):
+    &#39;&#39;&#39;Simple color-centered working heatmap for plots of correlation
+    &#39;&#39;&#39;
+    mask = np.triu(np.ones_like(corrs, dtype=np.bool))
+    corrs[mask] = np.nan
+    max_abs = np.nanmax(np.abs(corrs))
+    plt.imshow(corrs, cmap=cmap, vmax=max_abs, vmin=-max_abs)</code></pre>
+</details>
+</dd>
+<dt id="data-viz-utils.dvu.heatmap_extended"><code class="name flex">
+<span>def <span class="ident">heatmap_extended</span></span>(<span>data, cond1, cond2, show_cbar=True, annot=False, cmap=None, fontsize_small=10)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def heatmap_extended(data, cond1, cond2, show_cbar=True, annot=False,
+                     cmap=None,
+                     fontsize_small=10):
+    if cmap is None:
+        cmap = sns.color_palette(&#34;viridis&#34;, n_colors=1000)
+    plt.figure(figsize=(6, 6))
+    gs = gridspec.GridSpec(20, 20)  # split up the space into a grid
+    topheight = 4  # height of top plot (based on grid)
+    rightwidth = 5  # width of right plot (based on grid)
+
+    # heatmap
+    ax2 = plt.subplot(gs[topheight:, :-rightwidth])
+    im = sns.heatmap(data.T, cmap=cmap, cbar=False, annot=annot)
+    plt.xlabel(&#39;X1&#39;)
+    plt.ylabel(&#39;X2&#39;)
+
+    # top plot
+    ax1 = plt.subplot(gs[:topheight, :-rightwidth])
+    plt.xticks([])
+    plt.plot(cond1)
+    plt.ylabel(&#39;Conditional 1&#39;, fontsize=fontsize_small)
+
+    # right plot
+    ax3 = plt.subplot(gs[topheight:, -rightwidth:])
+    plt.yticks([])
+    plt.plot(cond2, range(len(cond2))[::-1])
+    plt.xlabel(&#39;Conditional 2&#39;, fontsize=fontsize_small)
+
+    plt.tight_layout()
+
+    # colorbar
+    if show_cbar:
+        # create a dummy plot and then remove it
+        plt.subplot(gs[0, -1])
+        cm = LinearSegmentedColormap.from_list(&#39;x&#39;, cmap)
+        im_c = plt.imshow(data, cmap=cm)
+        plt.cla()
+        plt.axis(&#39;off&#39;)
+
+        # partition the right space to add colorbar
+        plt.subplot(gs[topheight:, -rightwidth:])
+        ax = plt.gca()
+        divider = make_axes_locatable(ax)
+        cax = divider.append_axes(&#34;right&#34;, size=&#34;20%&#34;, pad=0.1)
+
+        # make colorbar based on dummy plot
+        cb = plt.colorbar(im_c, cax=cax)
+        cb.ax.tick_params(labelsize=8)
+        cb.outline.set_visible(False)</code></pre>
+</details>
+</dd>
+<dt id="data-viz-utils.dvu.jointplot_grouped"><code class="name flex">
+<span>def <span class="ident">jointplot_grouped</span></span>(<span>col_x, col_y, col_k, df, k_is_color=False, scatter_alpha=0.5, add_global_hists=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Jointplot of hists + densities
+Params</p>
+<hr>
+<dl>
+<dt><strong><code>col_x</code></strong></dt>
+<dd>name of X var</dd>
+<dt><strong><code>col_y</code></strong></dt>
+<dd>name of Y var</dd>
+<dt><strong><code>col_k</code></strong></dt>
+<dd>name of variable to group/color by</dd>
+<dt><strong><code>add_global_hists</code></strong></dt>
+<dd>whether to plot the global hist as well</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def jointplot_grouped(col_x: str, col_y: str, col_k: str, df,
+                      k_is_color=False, scatter_alpha=.5, add_global_hists: bool = True):
+    &#39;&#39;&#39;Jointplot of hists + densities
+    Params
+    ------
+    col_x
+        name of X var
+    col_y
+        name of Y var
+    col_k
+        name of variable to group/color by
+    add_global_hists
+        whether to plot the global hist as well
+    &#39;&#39;&#39;
+
+    def colored_scatter(x, y, c=None):
+        def scatter(*args, **kwargs):
+            args = (x, y)
+            if c is not None:
+                kwargs[&#39;c&#39;] = c
+            kwargs[&#39;alpha&#39;] = scatter_alpha
+            plt.scatter(*args, **kwargs)
+
+        return scatter
+
+    g = sns.JointGrid(
+        x=col_x,
+        y=col_y,
+        data=df
+    )
+    color = None
+    legends = []
+    for name, df_group in df.groupby(col_k):
+        legends.append(name)
+        if k_is_color:
+            color = name
+        g.plot_joint(
+            colored_scatter(df_group[col_x], df_group[col_y], color),
+        )
+        sns.distplot(
+            df_group[col_x].values,
+            ax=g.ax_marg_x,
+            color=color,
+        )
+        sns.distplot(
+            df_group[col_y].values,
+            ax=g.ax_marg_y,
+            color=color,
+            vertical=True
+        )
+    if add_global_hists:
+        sns.distplot(
+            df[col_x].values,
+            ax=g.ax_marg_x,
+            color=&#39;grey&#39;
+        )
+        sns.distplot(
+            df[col_y].values.ravel(),
+            ax=g.ax_marg_y,
+            color=&#39;grey&#39;,
+            vertical=True
+        )
+    plt.legend(legends)</code></pre>
+</details>
+</dd>
+<dt id="data-viz-utils.dvu.line_legend"><code class="name flex">
+<span>def <span class="ident">line_legend</span></span>(<span>fontsize=15, xoffset_spacing=0.02, extra_spacing=0.1, adjust_text_labels=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Adds a legend with appropriately colored text labels next to each line
+Params</p>
+<hr>
+<dl>
+<dt><strong><code>fontsize</code></strong></dt>
+<dd>size of font for labels</dd>
+<dt><strong><code>xoffset_spacing</code></strong></dt>
+<dd>spacing between end of line and label (fraction of total line length)</dd>
+<dt><strong><code>extra_spacing</code></strong></dt>
+<dd>extra spacing at right side of plot for label (fraction of total line length)</dd>
+<dt><strong><code>adjust_text_labels</code></strong></dt>
+<dd>whether to try to adjust the label positions to avoid overlap</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def line_legend(fontsize: float = 15,
+                xoffset_spacing: float = 0.02,
+                extra_spacing: float = 0.1,
+                adjust_text_labels: bool = False):
+    &#39;&#39;&#39;Adds a legend with appropriately colored text labels next to each line
+    Params
+    ------
+    fontsize
+        size of font for labels
+    xoffset_spacing
+        spacing between end of line and label (fraction of total line length)
+    extra_spacing
+        extra spacing at right side of plot for label (fraction of total line length)
+    adjust_text_labels
+        whether to try to adjust the label positions to avoid overlap
+    &#39;&#39;&#39;
+    ax = plt.gca()
+    handles, labels = ax.get_legend_handles_labels()
+    texts = []
+    for i in range(len(handles)):
+        line = handles[i]
+        x = line.get_xdata()[-1] * (1 + xoffset_spacing)
+        y = line.get_ydata()[-1]
+        c = line.get_color()
+        texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
+    #     xticks = ax.get_xticks()
+    #     xticklabels = ax.get_xticklabels()
+    plt.xlim(right=x * (1 + extra_spacing))
+    plt.tight_layout()
+    if adjust_text_labels:
+        adjust_text(texts, only_move={&#39;points&#39;: &#39;y&#39;, &#39;text&#39;: &#39;y&#39;, &#39;objects&#39;: &#39;y&#39;})</code></pre>
+</details>
+</dd>
+<dt id="data-viz-utils.dvu.plot_confusion_matrix"><code class="name flex">
+<span>def <span class="ident">plot_confusion_matrix</span></span>(<span>y_true, y_pred, classes, normalize=False, title=None, cmap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>This function prints and plots the confusion matrix.
+Normalization can be applied by setting <code>normalize=True</code>.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_confusion_matrix(y_true, y_pred, classes,
+                          normalize=False,
+                          title=None,
+                          cmap=plt.cm.Blues):
+    &#34;&#34;&#34;
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    &#34;&#34;&#34;
+    if not title:
+        if normalize:
+            title = &#39;Normalized confusion matrix&#39;
+        else:
+            title = &#39;Confusion matrix, without normalization&#39;
+
+    # Compute confusion matrix
+    cm = metrics.confusion_matrix(y_true, y_pred)
+    # Only use the labels that appear in the data
+    classes = classes[unique_labels(y_true, y_pred)]
+    if normalize:
+        cm = cm.astype(&#39;float&#39;) / cm.sum(axis=1)[:, np.newaxis]
+
+    #     fig, ax = plt.subplots()
+    im = plt.imshow(cm, interpolation=&#39;nearest&#39;, cmap=cmap)
+    ax = plt.gca()
+    #     ax.figure.colorbar(im, ax=ax)
+    # We want to show all ticks...
+    ax.set(xticks=np.arange(cm.shape[1]),
+           yticks=np.arange(cm.shape[0]),
+           # ... and label them with the respective list entries
+           xticklabels=classes, yticklabels=classes,
+           #            title=title,
+           ylabel=&#39;True label&#39;,
+           xlabel=&#39;Predicted label&#39;)
+
+    # Rotate the tick labels and set their alignment.
+    plt.setp(ax.get_xticklabels(), rotation=45, ha=&#34;right&#34;,
+             rotation_mode=&#34;anchor&#34;)
+
+    # Loop over data dimensions and create text annotations.
+    fmt = &#39;.2f&#39; if normalize else &#39;d&#39;
+    thresh = cm.max() / 2.
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            ax.text(j, i, format(cm[i, j], fmt),
+                    ha=&#34;center&#34;, va=&#34;center&#34;,
+                    color=&#34;white&#34; if cm[i, j] &gt; thresh else &#34;black&#34;)
+    return ax</code></pre>
+</details>
+</dd>
+<dt id="data-viz-utils.dvu.plot_pcs"><code class="name flex">
+<span>def <span class="ident">plot_pcs</span></span>(<span>pca, feat_names=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Pretty plot of pcs with explained var bars
+Params</p>
+<hr>
+<dl>
+<dt><strong><code>pca</code></strong> :&ensp;<code>sklearn</code> <code>PCA</code> <code>class</code> <code>after</code> <code>being</code> <code>fitted</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_pcs(pca, feat_names=None):
+    &#39;&#39;&#39;Pretty plot of pcs with explained var bars
+    Params
+    ------
+    pca: sklearn PCA class after being fitted
+    &#39;&#39;&#39;
+    # plt.figure(figsize=(6, 9), dpi=200)
+
+    # extract out relevant pars
+    comps = pca.components_.transpose()
+    var_norm = pca.explained_variance_ / np.sum(pca.explained_variance_) * 100
+
+    # create a 2 X 2 grid 
+    gs = gridspec.GridSpec(2, 2, height_ratios=[2, 10],
+                           width_ratios=[12, 1], wspace=0.1, hspace=0)
+
+    # plot explained variance
+    ax2 = plt.subplot(gs[0])
+    ax2.bar(np.arange(0, comps.shape[1]), var_norm,
+            color=&#39;gray&#39;, width=0.8)
+    plt.title(&#39;Explained variance (%)&#39;)
+    ax2.spines[&#39;right&#39;].set_visible(False)
+    ax2.spines[&#39;top&#39;].set_visible(False)
+    ax2.yaxis.set_ticks_position(&#39;left&#39;)
+    ax2.set_yticks([0, max(var_norm)])
+    plt.xlim((-0.5, comps.shape[1] - 0.5))
+
+    # plot pcs
+    ax = plt.subplot(gs[2])
+    vmaxabs = np.max(np.abs(comps))
+    p = ax.imshow(comps, interpolation=&#39;None&#39;, aspect=&#39;auto&#39;,
+                  cmap=sns.diverging_palette(10, 240, as_cmap=True, center=&#39;light&#39;),
+                  vmin=-vmaxabs, vmax=vmaxabs)  # center at 0
+    plt.xlabel(&#39;PCA component number&#39;)
+
+    if feat_names is not None:
+        ax.set_yticklabels(list(feat_names))
+        ax.set_yticks(range(len(list(feat_names))))
+
+    # make colorbar
+    colorAx = plt.subplot(gs[3])
+    cb = plt.colorbar(p, cax=colorAx)</code></pre>
+</details>
+</dd>
+<dt id="data-viz-utils.dvu.scatter_2_legends"><code class="name flex">
+<span>def <span class="ident">scatter_2_legends</span></span>(<span>x, y, c, s, xlab, ylab, colorlab, sizelab, markersize_rescaling, figsize=(7, 3))</span>
+</code></dt>
+<dd>
+<section class="desc"><h2 id="params">Params</h2>
+<p>markersize_rescaling:</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
+                      sizelab: str, markersize_rescaling: int, figsize=(7, 3)):
+    &#39;&#39;&#39;
+    Params
+    ------
+    markersize_rescaling: 
+    &#39;&#39;&#39;
+    # Unique category labels: &#39;D&#39;, &#39;F&#39;, &#39;G&#39;, ...
+    color_labels = c
+
+    # List of RGB triplets
+    rgb_values = sns.color_palette(&#34;Set2&#34;, len(color_labels))
+
+    # Map label to RGB
+    color_map = dict(zip(color_labels, rgb_values))
+
+    # Finally use the mapped values
+    colors = c.map(color_map)
+    #     plt.scatter(df[&#39;carat&#39;], df[&#39;price&#39;], c=df[&#39;color&#39;].map(color_map))
+    rgb_values = sns.color_palette(&#34;Set2&#34;, 8)
+
+    fig, ax = plt.subplots(figsize=figsize)
+    scatter = ax.scatter(x, y, c=colors, s=s, alpha=1)
+    plt.yscale(&#39;symlog&#39;)
+    plt.xscale(&#39;symlog&#39;)
+
+    # produce a legend with the unique colors from the scatter
+    leg_els = []
+    for k in color_map:
+        leg_els.append(Line2D([0], [0], marker=&#39;o&#39;, color=&#39;w&#39;, label=k, markerfacecolor=color_map[k], markersize=6))
+
+    legend1 = ax.legend(handles=leg_els, loc=&#34;upper left&#34;, title=colorlab, fontsize=9)
+    ax.add_artist(legend1)
+
+    # produce a legend with a cross section of sizes from the scatter
+    handles, labels = scatter.legend_elements(prop=&#34;sizes&#34;, alpha=1)
+    l2 = []
+    for i in range(len(labels)):
+        s = labels[i]
+        num = markersize_rescaling * round(float(s[s.index(&#39;{&#39;) + 1: s.index(&#39;}&#39;)]), 2)
+        l2.append(&#39;$\\mathdefault{&#39; + str(num) + &#39;}$&#39;)
+    legend2 = ax.legend(handles, l2, loc=&#34;lower right&#34;, title=sizelab)
+    plt.xlabel(xlab)
+    plt.ylabel(ylab)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="data-viz-utils" href="index.html">data-viz-utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="data-viz-utils.dvu.corrplot" href="#data-viz-utils.dvu.corrplot">corrplot</a></code></li>
+<li><code><a title="data-viz-utils.dvu.heatmap_extended" href="#data-viz-utils.dvu.heatmap_extended">heatmap_extended</a></code></li>
+<li><code><a title="data-viz-utils.dvu.jointplot_grouped" href="#data-viz-utils.dvu.jointplot_grouped">jointplot_grouped</a></code></li>
+<li><code><a title="data-viz-utils.dvu.line_legend" href="#data-viz-utils.dvu.line_legend">line_legend</a></code></li>
+<li><code><a title="data-viz-utils.dvu.plot_confusion_matrix" href="#data-viz-utils.dvu.plot_confusion_matrix">plot_confusion_matrix</a></code></li>
+<li><code><a title="data-viz-utils.dvu.plot_pcs" href="#data-viz-utils.dvu.plot_pcs">plot_pcs</a></code></li>
+<li><code><a title="data-viz-utils.dvu.scatter_2_legends" href="#data-viz-utils.dvu.scatter_2_legends">scatter_2_legends</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

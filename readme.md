@@ -7,6 +7,7 @@
   <img src="https://img.shields.io/github/checks-status/csinva/data-viz-utils/master">
 </p>  
 
+API reference available at https://csinva.io/data-viz-utils/docs/dvu.html
 
 ## Plot with 2 legends
 
