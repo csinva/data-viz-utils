@@ -37,7 +37,9 @@ def invert_plot():
 def line_legend(fontsize: float = 15,
                 xoffset_spacing: float = 0.02,
                 extra_spacing: float = 0.1,
-                adjust_text_labels: bool = False):
+                adjust_text_labels: bool = False,
+                ax=None,
+                **kwargs):
     '''Adds a legend with appropriately colored text labels next to each line
 
     Params
@@ -50,19 +52,32 @@ def line_legend(fontsize: float = 15,
         extra spacing at right side of plot for label (fraction of total line length)
     adjust_text_labels
         whether to try to adjust the label positions to avoid overlap
+    ax
+        optionally pass axis
+    **kwargs
+        passed to ax.annotate
     '''
-    ax = plt.gca()
+    if ax is None:
+        ax = plt.gca()
     handles, labels = ax.get_legend_handles_labels()
+    if len(handles) == 0:
+        return
+    
+    xlim = ax.get_xlim()[1]
+    ylim = ax.get_ylim()[1]
     texts = []
     for i in range(len(handles)):
         line = handles[i]
         x = line.get_xdata()[-1] * (1 + xoffset_spacing)
+        x = min(x, xlim) # if x is past the xlim, use xlim
         y = line.get_ydata()[-1]
         c = line.get_color()
-        texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
+#         texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
+        texts.append(ax.annotate(labels[i], (x, y), color=c, fontsize=fontsize), **kwargs)
     #     xticks = ax.get_xticks()
     #     xticklabels = ax.get_xticklabels()
-    plt.xlim(right=x * (1 + extra_spacing))
+    if extra_spacing > 0:
+        plt.xlim(right=x * (1 + extra_spacing))
     plt.tight_layout()
     if adjust_text_labels:
         adjust_text(texts, only_move={'points': 'y', 'text': 'y', 'objects': 'y'})

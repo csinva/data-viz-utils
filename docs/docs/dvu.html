@@ -34,9 +34,9 @@ from matplotlib.lines import Line2D
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from sklearn import metrics
 from sklearn.utils.multiclass import unique_labels
+import matplotlib as mpl
 
-# Generate a custom diverging colormap
-cmap = sns.diverging_palette(10, 220, as_cmap=True)
+cmap = sns.diverging_palette(10, 220, as_cmap=True) # Generate a custom diverging colormap
 cb = &#39;#66ccff&#39;
 cr = &#39;#cc0000&#39;
 
@@ -63,7 +63,9 @@ def invert_plot():
 def line_legend(fontsize: float = 15,
                 xoffset_spacing: float = 0.02,
                 extra_spacing: float = 0.1,
-                adjust_text_labels: bool = False):
+                adjust_text_labels: bool = False,
+                ax=None,
+                **kwargs):
     &#39;&#39;&#39;Adds a legend with appropriately colored text labels next to each line
 
     Params
@@ -76,25 +78,40 @@ def line_legend(fontsize: float = 15,
         extra spacing at right side of plot for label (fraction of total line length)
     adjust_text_labels
         whether to try to adjust the label positions to avoid overlap
+    ax
+        optionally pass axis
+    **kwargs
+        passed to ax.annotate
     &#39;&#39;&#39;
-    ax = plt.gca()
+    if ax is None:
+        ax = plt.gca()
     handles, labels = ax.get_legend_handles_labels()
+    if len(handles) == 0:
+        return
+    
+    xlim = ax.get_xlim()[1]
+    ylim = ax.get_ylim()[1]
     texts = []
     for i in range(len(handles)):
         line = handles[i]
         x = line.get_xdata()[-1] * (1 + xoffset_spacing)
+        x = min(x, xlim) # if x is past the xlim, use xlim
         y = line.get_ydata()[-1]
         c = line.get_color()
-        texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
+#         texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
+        texts.append(ax.annotate(labels[i], (x, y), color=c, fontsize=fontsize), **kwargs)
     #     xticks = ax.get_xticks()
     #     xticklabels = ax.get_xticklabels()
-    plt.xlim(right=x * (1 + extra_spacing))
+    if extra_spacing &gt; 0:
+        plt.xlim(right=x * (1 + extra_spacing))
     plt.tight_layout()
     if adjust_text_labels:
         adjust_text(texts, only_move={&#39;points&#39;: &#39;y&#39;, &#39;text&#39;: &#39;y&#39;, &#39;objects&#39;: &#39;y&#39;})
-
-
 #     plt.xticks(xticks, labels=xticklabels)
+
+def set_style():
+    mpl.rcParams[&#39;axes.spines.top&#39;] = False
+    mpl.rcParams[&#39;axes.spines.right&#39;] = False
 
 def corrplot(corrs):
     &#39;&#39;&#39;Simple color-centered traingle-heatmap for plots of correlation
@@ -566,7 +583,7 @@ Params</p>
 </details>
 </dd>
 <dt id="dvu.dvu.line_legend"><code class="name flex">
-<span>def <span class="ident">line_legend</span></span>(<span>fontsize=15, xoffset_spacing=0.02, extra_spacing=0.1, adjust_text_labels=False)</span>
+<span>def <span class="ident">line_legend</span></span>(<span>fontsize=15, xoffset_spacing=0.02, extra_spacing=0.1, adjust_text_labels=False, ax=None, **kwargs)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Adds a legend with appropriately colored text labels next to each line</p>
@@ -580,6 +597,10 @@ Params</p>
 <dd>extra spacing at right side of plot for label (fraction of total line length)</dd>
 <dt><strong><code>adjust_text_labels</code></strong></dt>
 <dd>whether to try to adjust the label positions to avoid overlap</dd>
+<dt><strong><code>ax</code></strong></dt>
+<dd>optionally pass axis</dd>
+<dt><strong><code>**kwargs</code></strong></dt>
+<dd>passed to ax.annotate</dd>
 </dl></section>
 <details class="source">
 <summary>
@@ -588,7 +609,9 @@ Params</p>
 <pre><code class="python">def line_legend(fontsize: float = 15,
                 xoffset_spacing: float = 0.02,
                 extra_spacing: float = 0.1,
-                adjust_text_labels: bool = False):
+                adjust_text_labels: bool = False,
+                ax=None,
+                **kwargs):
     &#39;&#39;&#39;Adds a legend with appropriately colored text labels next to each line
 
     Params
@@ -601,19 +624,32 @@ Params</p>
         extra spacing at right side of plot for label (fraction of total line length)
     adjust_text_labels
         whether to try to adjust the label positions to avoid overlap
+    ax
+        optionally pass axis
+    **kwargs
+        passed to ax.annotate
     &#39;&#39;&#39;
-    ax = plt.gca()
+    if ax is None:
+        ax = plt.gca()
     handles, labels = ax.get_legend_handles_labels()
+    if len(handles) == 0:
+        return
+    
+    xlim = ax.get_xlim()[1]
+    ylim = ax.get_ylim()[1]
     texts = []
     for i in range(len(handles)):
         line = handles[i]
         x = line.get_xdata()[-1] * (1 + xoffset_spacing)
+        x = min(x, xlim) # if x is past the xlim, use xlim
         y = line.get_ydata()[-1]
         c = line.get_color()
-        texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
+#         texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
+        texts.append(ax.annotate(labels[i], (x, y), color=c, fontsize=fontsize), **kwargs)
     #     xticks = ax.get_xticks()
     #     xticklabels = ax.get_xticklabels()
-    plt.xlim(right=x * (1 + extra_spacing))
+    if extra_spacing &gt; 0:
+        plt.xlim(right=x * (1 + extra_spacing))
     plt.tight_layout()
     if adjust_text_labels:
         adjust_text(texts, only_move={&#39;points&#39;: &#39;y&#39;, &#39;text&#39;: &#39;y&#39;, &#39;objects&#39;: &#39;y&#39;})</code></pre>
@@ -798,6 +834,20 @@ Normalization can be applied by setting <code>normalize=True</code>.</p></sectio
     plt.ylabel(ylab)</code></pre>
 </details>
 </dd>
+<dt id="dvu.dvu.set_style"><code class="name flex">
+<span>def <span class="ident">set_style</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_style():
+    mpl.rcParams[&#39;axes.spines.top&#39;] = False
+    mpl.rcParams[&#39;axes.spines.right&#39;] = False</code></pre>
+</details>
+</dd>
 </dl>
 </section>
 <section>
@@ -824,6 +874,7 @@ Normalization can be applied by setting <code>normalize=True</code>.</p></sectio
 <li><code><a title="dvu.dvu.plot_confusion_matrix" href="#dvu.dvu.plot_confusion_matrix">plot_confusion_matrix</a></code></li>
 <li><code><a title="dvu.dvu.plot_pcs" href="#dvu.dvu.plot_pcs">plot_pcs</a></code></li>
 <li><code><a title="dvu.dvu.scatter_2_legends" href="#dvu.dvu.scatter_2_legends">scatter_2_legends</a></code></li>
+<li><code><a title="dvu.dvu.set_style" href="#dvu.dvu.set_style">set_style</a></code></li>
 </ul>
 </li>
 </ul>
