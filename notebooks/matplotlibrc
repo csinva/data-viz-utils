@@ -1,8 +1,6 @@
 figure.autolayout : True
 
 axes.titlesize : 20
-axes.spines.top:    False
-axes.spines.right:  False
 axes.labelsize      : 15  ## fontsize of the x any y labels
 
 font.size           : 15

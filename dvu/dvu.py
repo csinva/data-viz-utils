@@ -8,9 +8,9 @@ from matplotlib.lines import Line2D
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from sklearn import metrics
 from sklearn.utils.multiclass import unique_labels
+import matplotlib as mpl
 
-# Generate a custom diverging colormap
-cmap = sns.diverging_palette(10, 220, as_cmap=True)
+cmap = sns.diverging_palette(10, 220, as_cmap=True) # Generate a custom diverging colormap
 cb = '#66ccff'
 cr = '#cc0000'
 
@@ -66,9 +66,11 @@ def line_legend(fontsize: float = 15,
     plt.tight_layout()
     if adjust_text_labels:
         adjust_text(texts, only_move={'points': 'y', 'text': 'y', 'objects': 'y'})
-
-
 #     plt.xticks(xticks, labels=xticklabels)
+
+def set_style():
+    mpl.rcParams['axes.spines.top'] = False
+    mpl.rcParams['axes.spines.right'] = False
 
 def corrplot(corrs):
     '''Simple color-centered traingle-heatmap for plots of correlation

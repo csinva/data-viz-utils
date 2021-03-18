@@ -11,7 +11,7 @@
 </p>
 
 
-Can be installed using `pip install dvu` and them imported with `import dvu`. 
+Can be installed using `pip install dvu` and then imported with `import dvu`. 
 
 You can also just copy the relatively short source code for the functions (easily viewable [here](https://csinva.io/data-viz-utils/docs/dvu.html)). 
 
