@@ -77,7 +77,7 @@ def line_legend(fontsize: float = 15,
     #     xticks = ax.get_xticks()
     #     xticklabels = ax.get_xticklabels()
     if extra_spacing > 0:
-        plt.xlim(right=x * (1 + extra_spacing))
+        ax.set_xlim(right=x * (1 + extra_spacing))
     plt.tight_layout()
     if adjust_text_labels:
         adjust_text(texts, only_move={'points': 'y', 'text': 'y', 'objects': 'y'})
