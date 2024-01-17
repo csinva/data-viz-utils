@@ -9,8 +9,10 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from sklearn import metrics
 from sklearn.utils.multiclass import unique_labels
 import matplotlib as mpl
+from typing import List
 
-cmap = sns.diverging_palette(10, 220, as_cmap=True) # Generate a custom diverging colormap
+# Generate a custom diverging colormap
+cmap = sns.diverging_palette(10, 220, as_cmap=True)
 cb = '#66ccff'
 cr = '#cc0000'
 
@@ -62,30 +64,34 @@ def line_legend(fontsize: float = 15,
     handles, labels = ax.get_legend_handles_labels()
     if len(handles) == 0:
         return
-    
+
     xlim = ax.get_xlim()[1]
     ylim = ax.get_ylim()[1]
     texts = []
     for i in range(len(handles)):
         line = handles[i]
         x = line.get_xdata()[-1] * (1 + xoffset_spacing)
-        x = min(x, xlim) # if x is past the xlim, use xlim
+        x = min(x, xlim)  # if x is past the xlim, use xlim
         y = line.get_ydata()[-1]
         c = line.get_color()
 #         texts.append(plt.text(x, y, labels[i], color=c, fontsize=fontsize))
-        texts.append(ax.annotate(labels[i], (x, y), color=c, fontsize=fontsize), **kwargs)
+        texts.append(ax.annotate(
+            labels[i], (x, y), color=c, fontsize=fontsize), **kwargs)
     #     xticks = ax.get_xticks()
     #     xticklabels = ax.get_xticklabels()
     if extra_spacing > 0:
         ax.set_xlim(right=x * (1 + extra_spacing))
     plt.tight_layout()
     if adjust_text_labels:
-        adjust_text(texts, only_move={'points': 'y', 'text': 'y', 'objects': 'y'})
+        adjust_text(texts, only_move={
+                    'points': 'y', 'text': 'y', 'objects': 'y'})
 #     plt.xticks(xticks, labels=xticklabels)
+
 
 def set_style():
     mpl.rcParams['axes.spines.top'] = False
     mpl.rcParams['axes.spines.right'] = False
+
 
 def corrplot(corrs):
     '''Simple color-centered traingle-heatmap for plots of correlation
@@ -211,7 +217,7 @@ def plot_pcs(pca, feat_names=None):
     comps = pca.components_.transpose()
     var_norm = pca.explained_variance_ / np.sum(pca.explained_variance_) * 100
 
-    # create a 2 X 2 grid 
+    # create a 2 X 2 grid
     gs = gridspec.GridSpec(2, 2, height_ratios=[2, 10],
                            width_ratios=[12, 1], wspace=0.1, hspace=0)
 
@@ -230,7 +236,8 @@ def plot_pcs(pca, feat_names=None):
     ax = plt.subplot(gs[2])
     vmaxabs = np.max(np.abs(comps))
     p = ax.imshow(comps, interpolation='None', aspect='auto',
-                  cmap=sns.diverging_palette(10, 240, as_cmap=True, center='light'),
+                  cmap=sns.diverging_palette(
+                      10, 240, as_cmap=True, center='light'),
                   vmin=-vmaxabs, vmax=vmaxabs)  # center at 0
     plt.xlabel('PCA component number')
 
@@ -338,9 +345,11 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
     # produce a legend with the unique colors from the scatter
     leg_els = []
     for k in color_map:
-        leg_els.append(Line2D([0], [0], marker='o', color='w', label=k, markerfacecolor=color_map[k], markersize=6))
+        leg_els.append(Line2D([0], [0], marker='o', color='w',
+                       label=k, markerfacecolor=color_map[k], markersize=6))
 
-    legend1 = ax.legend(handles=leg_els, loc="upper left", title=colorlab, fontsize=9)
+    legend1 = ax.legend(handles=leg_els, loc="upper left",
+                        title=colorlab, fontsize=9)
     ax.add_artist(legend1)
 
     # produce a legend with a cross section of sizes from the scatter
@@ -348,8 +357,51 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
     l2 = []
     for i in range(len(labels)):
         s = labels[i]
-        num = markersize_rescaling * round(float(s[s.index('{') + 1: s.index('}')]), 2)
+        num = markersize_rescaling * \
+            round(float(s[s.index('{') + 1: s.index('}')]), 2)
         l2.append('$\\mathdefault{' + str(num) + '}$')
     legend2 = ax.legend(handles, l2, loc="lower right", title=sizelab)
     plt.xlabel(xlab)
     plt.ylabel(ylab)
+
+
+def outline_diagonal(shape, color='gray', lw=1, block_size=1, roffset=0, coffset=0, skip_rows: List = []):
+    for r in range(shape[0]):
+        for c in range(shape[1]):
+            # skip if r in skip_rows
+            if r in skip_rows:
+                continue
+            # outline the diagonal with blocksize 1
+            if block_size == 1 and r == c:
+                rx = r + roffset
+                cx = c + coffset
+                plt.plot([rx - 0.5, rx + 0.5],
+                         [cx - 0.5, cx - 0.5], color=color, lw=lw)
+                plt.plot([rx - 0.5, rx + 0.5],
+                         [cx + 0.5, cx + 0.5], color=color, lw=lw)
+                plt.plot([rx - 0.5, rx - 0.5],
+                         [cx - 0.5, cx + 0.5], color=color, lw=lw)
+                plt.plot([rx + 0.5, rx + 0.5],
+                         [cx - 0.5, cx + 0.5], color=color, lw=lw)
+            if block_size == 2 and r == c and r % 2 == 0:
+                rx = r + 0.5 + roffset
+                cx = c + 0.5 + coffset
+                plt.plot([rx - 1, rx + 1], [cx - 1, cx - 1],
+                         color=color, lw=lw)
+                plt.plot([rx - 1, rx + 1], [cx + 1, cx + 1],
+                         color=color, lw=lw)
+                plt.plot([rx - 1, rx - 1], [cx - 1, cx + 1],
+                         color=color, lw=lw)
+                plt.plot([rx + 1, rx + 1], [cx - 1, cx + 1],
+                         color=color, lw=lw)
+            if block_size == 3 and r == c and r % 3 == 0:
+                rx = r + 1 + roffset
+                cx = c + 1 + coffset
+                plt.plot([rx - 1.5, rx + 1.5],
+                         [cx - 1.5, cx - 1.5], color=color, lw=lw)
+                plt.plot([rx - 1.5, rx + 1.5],
+                         [cx + 1.5, cx + 1.5], color=color, lw=lw)
+                plt.plot([rx - 1.5, rx - 1.5],
+                         [cx - 1.5, cx + 1.5], color=color, lw=lw)
+                plt.plot([rx + 1.5, rx + 1.5],
+                         [cx - 1.5, cx + 1.5], color=color, lw=lw)
