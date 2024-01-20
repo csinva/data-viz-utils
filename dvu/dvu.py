@@ -365,7 +365,9 @@ def scatter_2_legends(x, y, c, s, xlab: str, ylab: str, colorlab: str,
     plt.ylabel(ylab)
 
 
-def outline_diagonal(shape, color='gray', lw=1, block_size=1, roffset=0, coffset=0, skip_rows: List = []):
+def outline_diagonal(shape, color='gray', lw=1, block_size=1, roffset=0, coffset=0, skip_rows: List = [], ax=None):
+    if ax:
+        plt = ax
     for r in range(shape[0]):
         for c in range(shape[1]):
             # skip if r in skip_rows
